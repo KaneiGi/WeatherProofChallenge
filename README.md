@@ -1,22 +1,41 @@
-# Model Merge Script
+---
 
-This script, `model_merge.py`, merges the segmentation results from multiple models. The script allows you to specify the dataset folder, the folder containing the prediction results from each model, and the folder to save the merged results. Additionally, it provides an option to simplify the merging process by using only the first image's merged result to replace the remaining images, speeding up the computation.
+# WeatherProofChallenge
 
-## Requirements
+In the [WeatherProof Dataset Challenge: Semantic Segmentation In Adverse Weather (CVPR’24 UG²+)](http://cvpr2023.ug2challenge.org/index.html), we achieved first place. This repository contains training and inference scripts for three models: OneFormer, DepthAnything, and InternImage, all implemented within the MMSegmentation framework.
 
-- Python 3.x
-- OpenCV
-- NumPy
+## Additional Training Dataset
 
-## Installation
+You can download the additional training dataset from [WeatherProofExtra on Hugging Face](https://huggingface.co/datasets/WangFangjun/WeatherProofExtra). This dataset can be used to further train your models for better performance.
 
-First, ensure you have the necessary libraries installed. You can do this using pip:
+## Testing and Inference
 
+To perform inference using the downloaded model weights, you can use the provided `test.sh` script on each model's folder. The six model weights and their results can be found at [WeatherProofChallenge-1st-place on Hugging Face](https://huggingface.co/WangFangjun/WeatherProofChallenge-1st-place).
+
+### test.sh
 ```bash
-pip install opencv-python numpy
+#!/usr/bin/env bash
+
+CONFIG=$1 
+CHECKPOINT=$2 
+PYTHONPATH="$(dirname $0)/..":$PYTHONPATH
+python $(dirname "$0")/test.py $CONFIG $CHECKPOINT --show-dir ./result --out output.pkl
 ```
 
-## Usage
+### Running the test script
+
+1. Download the model weights from the provided link.
+2. Save the `test.sh` script in your project directory.
+3. Ensure you have a configuration file and the corresponding checkpoint file for the model.
+
+Run the script as follows:
+```bash
+bash test.sh /path/to/config /path/to/checkpoint
+```
+
+This will perform inference using the specified model configuration and checkpoint, saving the results in the `./result` directory and outputting to `output.pkl`.
+
+## Using the Model Merge Script
 
 ### Command Line Arguments
 
@@ -32,47 +51,47 @@ Assume you have the following directory structure:
 #### Dataset Folder Structure
 ```
 /path/to/dataset/
-scene1/
-frame_000001.png
-frame_000002.png
-...
-frame_000299.png
-scene2/
-frame_000001.png
-frame_000002.png
-...
-frame_000299.png
-...
+    scene1/
+        frame_000001.png
+        frame_000002.png
+        ...
+        frame_000299.png
+    scene2/
+        frame_000001.png
+        frame_000002.png
+        ...
+        frame_000299.png
+    ...
 ```
 
 #### Segmentation Results Folder Structure
 ```
 /path/to/segmentation_results/
-model1/
-scene1/
-frame_000001.png
-frame_000002.png
-...
-frame_000299.png
-scene2/
-frame_000001.png
-frame_000002.png
-...
-frame_000299.png
-...
-model2/
-scene1/
-frame_000001.png
-frame_000002.png
-...
-frame_000299.png
-scene2/
-frame_000001.png
-frame_000002.png
-...
-frame_000299.png
-...
-...
+    model1/
+        scene1/
+            frame_000001.png
+            frame_000002.png
+            ...
+            frame_000299.png
+        scene2/
+            frame_000001.png
+            frame_000002.png
+            ...
+            frame_000299.png
+        ...
+    model2/
+        scene1/
+            frame_000001.png
+            frame_000002.png
+            ...
+            frame_000299.png
+        scene2/
+            frame_000001.png
+            frame_000002.png
+            ...
+            frame_000299.png
+        ...
+    ...
 ```
 
 You can run the script as follows:
@@ -97,14 +116,8 @@ python model_merge.py /path/to/dataset /path/to/segmentation_results /path/to/ou
 
 4. **`--simplify`**: When this optional flag is included, the script will use only the first image's merged result in each scene to replace the results of the remaining images, significantly speeding up the process.
 
-### Script Workflow
-
-1. The script reads the scenes and images from the specified dataset folder (`rgb_path`).
-2. It then reads the segmentation results from each model's subfolder within the specified label folder (`label_folder`).
-3. The script merges these segmentation results using predefined weights.
-4. If the `--simplify` flag is used, the merged result of the first image in each scene is used for all subsequent images within that scene.
-5. The final merged results are saved to the specified output folder (`out_label_folder`), maintaining the same scene and image naming structure.
-
 ### Contact
 
 [//]: # (For any questions or issues, please contact [Your Name] at [Your Email].)
+
+---
