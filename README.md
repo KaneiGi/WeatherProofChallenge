@@ -66,7 +66,7 @@ Assume you have the following directory structure:
 
 #### Segmentation Results Folder Structure
 ```
-/path/to/out_label_folder/
+/path/to/label_folder/
     model1/
         scene1/
             frame_000001.png
