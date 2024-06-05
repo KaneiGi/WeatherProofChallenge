@@ -106,16 +106,6 @@ To use the simplified merging process, add the `--simplify` flag:
 python model_merge.py /path/to/dataset /path/to/segmentation_results /path/to/output_results --simplify
 ```
 
-### Detailed Description
-
-1. **`rgb_path`**: This argument specifies the path to the dataset folder containing the scenes with images that need to be processed. Each scene is a subfolder with images named `frame_000001.png` to `frame_000299.png`.
-
-2. **`label_folder`**: This argument specifies the path to the folder containing subfolders with the segmentation results from different models. Each model's results should be in a separate subfolder, maintaining the same scene and image naming structure as the dataset folder.
-
-3. **`out_label_folder`**: This argument specifies the path to the folder where the merged results will be saved. The output folder structure will mirror the input dataset structure.
-
-4. **`--simplify`**: When this optional flag is included, the script will use only the first image's merged result in each scene to replace the results of the remaining images, significantly speeding up the process.
-
 ### Contact
 
 [//]: # (For any questions or issues, please contact [Your Name] at [Your Email].)
