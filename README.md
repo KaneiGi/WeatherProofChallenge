@@ -10,9 +10,15 @@ You can download the additional training dataset from [WeatherProofExtra on Hugg
 
 ## Testing and Inference
 
-To perform inference using the downloaded model weights, you can use the provided `test.sh` script on each model's folder. The six model weights and their results can be found at [WeatherProofChallenge-1st-place on Hugging Face](https://huggingface.co/WangFangjun/WeatherProofChallenge-1st-place).
+To perform inference using the downloaded model weights, you can use the provided script on each model's folder. The six model weights and their results can be found at [WeatherProofChallenge-1st-place on Hugging Face](https://huggingface.co/WangFangjun/WeatherProofChallenge-1st-place).
 
-### test.sh
+
+### Running the InterImage test script
+
+1. Download the model weights from the provided link.
+2. Ensure you have a configuration file and the corresponding checkpoint file for the model.
+3. run the `test.sh` script in `InterImageClip` directory.
+
 ```bash
 #!/usr/bin/env bash
 
@@ -22,19 +28,23 @@ PYTHONPATH="$(dirname $0)/..":$PYTHONPATH
 python $(dirname "$0")/test.py $CONFIG $CHECKPOINT --show-dir ./result --out output.pkl
 ```
 
-### Running the test script
-
-1. Download the model weights from the provided link.
-2. Save the `test.sh` script in your project directory.
-3. Ensure you have a configuration file and the corresponding checkpoint file for the model.
-
-Run the script as follows:
-```bash
-bash test.sh /path/to/config /path/to/checkpoint
-```
-
 This will perform inference using the specified model configuration and checkpoint, saving the results in the `./result` directory and outputting to `output.pkl`.
 
+### Running the OneFormer test cript
+
+1. Download the model weights from the provided link.
+2. Ensure you have the appropriate configuration file for the OneFormer model.
+3. Run the `demo.sh` script in `OneFormer` directory:
+```bash
+CUDA_VISIBLE_DEVICES=0 python demo/demo.py --config-file configs/weatherproof/swin/oneformer_swin_large_bs16_100ep.yaml \
+  --input datasets/WeatherProofTest \
+  --output datasets/WeatherProofTestOut \
+  --task semantic \
+  --confidence-threshold 0.5 \
+  --opts MODEL.IS_TRAIN False MODEL.IS_DEMO True MODEL.WEIGHTS outputs/weatherproof_swin_large_extra_30/model_0007499.pth
+```
+
+This will perform inference using the OneFormer model, saving the results in the specified output directory.
 ## Using the Model Merge Script
 
 ### Command Line Arguments
