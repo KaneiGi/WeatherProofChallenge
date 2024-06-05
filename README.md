@@ -50,7 +50,7 @@ Assume you have the following directory structure:
 
 #### Dataset Folder Structure
 ```
-/path/to/dataset/
+/path/to/rgb_path/
     scene1/
         frame_000001.png
         frame_000002.png
@@ -66,7 +66,7 @@ Assume you have the following directory structure:
 
 #### Segmentation Results Folder Structure
 ```
-/path/to/segmentation_results/
+/path/to/out_label_folder/
     model1/
         scene1/
             frame_000001.png
