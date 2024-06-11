@@ -144,9 +144,3 @@ To use the simplified merging process, add the `--simplify` flag:
 ```bash
 python model_merge.py /path/to/dataset /path/to/segmentation_results /path/to/output_results --simplify
 ```
-
-### Contact
-
-[//]: # (For any questions or issues, please contact [Your Name] at [Your Email].)
-
----
