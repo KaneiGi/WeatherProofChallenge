@@ -15,8 +15,9 @@ To perform inference using the downloaded model weights, you can use the provide
 
 ### Running the InterImage test script
 
-1. Download the model weights from the provided link.
-2. Ensure you have a configuration file and the corresponding checkpoint file for the model.
+1. Download the model weights(`1-internimage_clip.pth
+` & `4-intern-finetune-0517.pth`) from the provided link.
+2. Ensure you have the corresponding configuration files  for the model.
 3. run the `test.sh` script in `InterImageClip` directory.
 
 ```bash
@@ -32,7 +33,7 @@ This will perform inference using the specified model configuration and checkpoi
 
 ### Running the OneFormer test cript
 
-1. Download the model weights from the provided link.
+1. Download the model weights(`5-oneformer_model_0007499.pth`) from the provided link.
 2. Ensure you have the appropriate configuration file for the OneFormer model.
 3. Run the `demo.sh` script in `OneFormer` directory:
 ```bash
@@ -45,6 +46,34 @@ CUDA_VISIBLE_DEVICES=0 python demo/demo.py --config-file configs/weatherproof/sw
 ```
 
 This will perform inference using the OneFormer model, saving the results in the specified output directory.
+
+### Running the DepthAnything test script
+
+1. Download the model weights(`2-setrmla.pth` & `6-upernet_segmenter.pth`) from the provided link.
+2. Ensure you have a configuration file for the model.
+3. run the `test_{model}_{method}.sh` script in `mmsegmentation_depthanything/tools` directory.
+
+`test_upernet_whole.sh:`
+```bash
+#!/bin/bash
+
+python tools/test.py ../configs/depth_anything/depth_anything_large_upernet_1xb4_160k_weather_proof_cdv4train_whole_896x896.py \
+ checkpoints/6-upernet_segmenter.pth --work-dir work_dir/upernet_whole --out work_dir/upernet_whole --show-dir work_dir/upernet_whole
+```
+`test_setrmal_whole.sh:`
+```bash
+#!/bin/bash
+
+python tools/test.py ../configs/depth_anything/depth_anything_large_setrmla_1xb4_160k_weather_proof_cdv4train_whole_896x896.py \
+ checkpoints/2-setrmla.pth --work-dir work_dir/setrmla_whole --out work_dir/setrmla_whole --show-dir work_dir/setrmla_whole
+```
+`test_upernet_slide.sh:`
+```bash
+#!/bin/bash
+
+python tools/test.py ../configs/depth_anything/depth_anything_large_setrmla_1xb4_160k_weather_proof_cdv4train_slide_896x896.py \
+ checkpoints/2-setrmla.pth --work-dir work_dir/setrmla_slide --out work_dir/setrmla_slide --show-dir work_dir/setrmla_slide
+```
 ## Using the Model Merge Script
 
 ### Command Line Arguments
